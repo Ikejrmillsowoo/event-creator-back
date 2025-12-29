@@ -1,5 +1,12 @@
 package Codewithike.event_creator.model;
 
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
 public class Event {
     private Long id;
     private Long hostUserId;
