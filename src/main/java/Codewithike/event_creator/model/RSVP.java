@@ -1,6 +1,12 @@
 package Codewithike.event_creator.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class RSVP {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long eventId;
     private Long userId;

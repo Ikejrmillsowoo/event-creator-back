@@ -1,6 +1,6 @@
 package Codewithike.event_creator.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,18 +8,28 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Table(name = "users")
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
     private Date createdAt;
 
-    public User(Long id, String name, String email, Date createdAt) {
+    public User(Long id, String name, String email, String password, Date createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.createdAt = createdAt;
+    }
+    public User() {
     }
 
     public Long getId() {
@@ -44,6 +54,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getCreatedAt() {
