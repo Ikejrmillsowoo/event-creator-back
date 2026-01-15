@@ -5,33 +5,45 @@ import Codewithike.event_creator.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
-    UserRepo userRepo;
+    private final UserRepo userRepo;
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
-    public void createUser(User user) {
-        User existingUser = userRepo.findByEmail(user.getEmail());
-        if (existingUser != null) {
-            throw new RuntimeException("User with this email already exists");
+    public User createUser(User user) {
+        if (user == null || user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new RuntimeException("User email cannot be null or empty");
         }
-        userRepo.save(user);
+        return userRepo.save(user);
     }
 
-    public User getUserById(Long id) {
-        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public Optional<User> getUserById(Long id) {
+        if (id == null) {
+            throw new RuntimeException("User ID cannot be null");
+        }
+        return userRepo.findById(id);
     }
 
     public List<User> getAllUsers() {
         return (List<User>) userRepo.findAll();
     }
 
-//    public User getUserByEmail(String email) {
-//        User user =
-//        return userRepo.(email).orElseThrow(() -> new RuntimeException("User not found"));
-//    }
+    public User updateUser(Long id, User userDetails) {
+        User user = getUserById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        user.setName(userDetails.getName());
+        user.setEmail(userDetails.getEmail());
+        user.setPassword(userDetails.getPassword());
+        return userRepo.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        User user = getUserById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        userRepo.delete(user);
+    }
+
 }

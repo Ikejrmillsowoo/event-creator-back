@@ -3,15 +3,16 @@ package Codewithike.event_creator.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 @Entity
-@Getter
-@Setter
+//@Getter
+//@Setter
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String name;
@@ -20,15 +21,17 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    @CreationTimestamp
     private Date createdAt;
 
-    public User(Long id, String name, String email, String password, Date createdAt) {
-        this.id = id;
+
+    public User(String name, String email, String password, Date createdAt) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.createdAt = createdAt;
     }
+
     public User() {
     }
 
