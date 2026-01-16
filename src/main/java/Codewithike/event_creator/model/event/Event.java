@@ -1,8 +1,13 @@
 package Codewithike.event_creator.model.event;
 
+import Codewithike.event_creator.model.Comment;
+import Codewithike.event_creator.model.Invitation;
+import Codewithike.event_creator.model.RSVP;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,8 +43,7 @@ public class Event {
     @OneToMany
     private java.util.List<Codewithike.event_creator.model.Comment> comments;
 
-    public Event(Long id, Long hostUserId, String title, String description, String eventDate, String startTime, String endTime, String location, String createdAt) {
-        this.id = id;
+    public Event(Long hostUserId, String title, String description, String eventDate, String startTime, String endTime, String location, String createdAt, String updatedAt, List<Invitation> invitations, List<RSVP> rsvps, List<Comment> comments) {
         this.hostUserId = hostUserId;
         this.title = title;
         this.description = description;
@@ -48,7 +52,9 @@ public class Event {
         this.endTime = endTime;
         this.location = location;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.invitations = invitations;
+        this.rsvps = rsvps;
+        this.comments = comments;
     }
-
-
 }
