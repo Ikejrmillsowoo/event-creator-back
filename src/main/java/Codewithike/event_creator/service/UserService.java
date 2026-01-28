@@ -19,6 +19,12 @@ public class UserService {
         if (user == null || user.getEmail() == null || user.getEmail().isEmpty()) {
             throw new RuntimeException("User email cannot be null or empty");
         }
+        List<User> existingUsers = getAllUsers();
+        for (User existingUser : existingUsers) {
+            if (existingUser.getEmail().equals(user.getEmail())) {
+                throw new RuntimeException("User with email " + user.getEmail() + " already exists");
+            }
+        }
         return userRepo.save(user);
     }
 

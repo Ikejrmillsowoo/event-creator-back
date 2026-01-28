@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface EventRepo extends JpaRepository<Event, Long> {
-    Optional<User> findByHostId(Long hostId);
-    List<Event> upcomingEvents();
+
+  Optional<User> findByHostUserId(Long hostUserId);
+
+//    List<Event> upcomingEvents();
 }
